@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {getFirestore} from "firebase/firestore"
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -8,8 +9,9 @@ const firebaseConfig = {
   projectId: "house-listings-5cecc",
   storageBucket: "house-listings-5cecc.appspot.com",
   messagingSenderId: "127400473592",
-  appId: "1:127400473592:web:a55df74801647c213bdc0d"
+  appId: "1:127400473592:web:a55df74801647c213bdc0d",
 };
 
 // Initialize Firebase
-export const db = getFirestore
+initializeApp(firebaseConfig);
+export const db = getFirestore();
