@@ -212,6 +212,10 @@ button {
   background: url('./assets/svg/lockIcon.svg') #ffffff 2.5% center no-repeat;
 }
 
+.passwordHidden {
+  -webkit-text-security: disc;
+}
+
 .showPassword {
   cursor: pointer;
   position: absolute;
