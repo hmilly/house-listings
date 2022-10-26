@@ -5,7 +5,7 @@ import {
   where,
   orderBy,
   limit,
-  startAfter,
+//  startAfter,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
