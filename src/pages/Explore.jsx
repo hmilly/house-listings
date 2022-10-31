@@ -1,8 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import rentCategoryImage from "../assets/jpg/rentCategoryImage.jpg";
 import sellCategoryImage from "../assets/jpg/sellCategoryImage.jpg";
+import { useState, useEffect } from "react";
+import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
+import { db } from "../firebase.config";
+import Spinner from "../components/Spinner";
+import ListingSlider from "../components/LisitingSlider";
 
 const Explore = () => {
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      const listingsRef = collection(db, "listings");
+      const q = query(listingsRef, orderBy("timestamp", "desc"), limit(5));
+      const querySnap = await getDocs(q);
+
+      let listings = [];
+
+      querySnap.forEach((doc) =>
+        listings.push({ id: doc.id, data: doc.data() })
+      );
+
+      setListings(listings);
+      setLoading(false);
+    };
+    fetchListings();
+  }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
   return (
     <div className="explore">
       <header>
@@ -10,6 +41,8 @@ const Explore = () => {
       </header>
 
       <main>
+        {listings && <ListingSlider listings={listings} />}
+
         <p className="exploreCategoryHeading"></p>
         <div className="exploreCategories">
           <Link to="/category/rent">

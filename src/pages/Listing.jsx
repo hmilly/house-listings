@@ -6,6 +6,7 @@ import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
 import shareIcon from "../assets/svg/shareIcon.svg";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import ImageSlider from "../components/ImageSlider";
 
 const Listing = () => {
   const [listing, setListing] = useState(null);
@@ -43,8 +44,6 @@ const Listing = () => {
   }
   return (
     <main>
-      {/* Slider */}
-
       <div className="shareIconDiv" onClick={() => copyLink()}>
         <img src={shareIcon} alt="share icon" />
       </div>
@@ -62,6 +61,9 @@ const Listing = () => {
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
         <p className="listingLocation">{listing.location}</p>
+
+        <ImageSlider imgArr={listing.imgUrls} />
+
         <p className="listingType">
           For {listing.type === "rent" ? "Rent" : "Sale"}
         </p>
@@ -86,7 +88,9 @@ const Listing = () => {
           <li>{listing.parking && "Parking spot"}</li>
           <li>{listing.furnished && "Furnished"}</li>
         </ul>
+
         <p className="listingLocationTitle">Location</p>
+
         <div className="leafletContainer" id="map">
           <MapContainer
             style={{ height: "100%", width: "100%" }}
