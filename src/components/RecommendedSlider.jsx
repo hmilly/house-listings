@@ -4,9 +4,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const ListingSlider = ({ listings }) => {
+const RecommendedSlider = ({ listings }) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <p className="exploreHeading">Recommended</p>
@@ -19,7 +21,7 @@ const ListingSlider = ({ listings }) => {
         {listings.map(({ data, id }) => (
           <SwiperSlide
             key={id}
-            onClick={() => Navigate(`/category/${data.type}/${id}`)}
+            onClick={() => navigate(`/category/${data.type}/${id}`)}
           >
             <div className="swiperSlideDiv">
               <p className="swiperSlideText">{data.name}</p>
@@ -31,7 +33,7 @@ const ListingSlider = ({ listings }) => {
               <img
                 className="swiperSlideImg"
                 src={data.imgUrls[0]}
-                alt={`House image ${id}`}
+                alt={`House ${id}`}
               />
             </div>
           </SwiperSlide>
@@ -41,4 +43,4 @@ const ListingSlider = ({ listings }) => {
   );
 };
 
-export default ListingSlider;
+export default RecommendedSlider;

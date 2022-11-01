@@ -1,4 +1,4 @@
-const FormBody = ({formData, setFormData, geolocationEnabled}) => {
+const FormBody = ({ formData, setFormData, geolocationEnabled }) => {
   const {
     type,
     name,

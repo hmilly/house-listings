@@ -8,6 +8,7 @@ const Contact = () => {
   const [msg, setMsg] = useState("");
   const [landlord, setLandlord] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  
   const params = useParams();
 
   useEffect(() => {

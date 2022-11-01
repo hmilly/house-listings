@@ -17,7 +17,6 @@ import FormBody from "../components/FormBody";
 const CreateListing = () => {
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
-
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -59,7 +58,7 @@ const CreateListing = () => {
     return () => {
       isMounted.current = false;
     };
-  }, [isMounted]);
+  }, [isMounted, auth, formData]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +89,7 @@ const CreateListing = () => {
       geolocation.lng = data.results[0]?.geometry.location.lng ?? 0;
 
       location =
-        data.status == "ZERO_RESULTS"
+        data.status === "ZERO_RESULTS"
           ? undefined
           : data.results[0]?.formatted_address;
 

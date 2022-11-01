@@ -4,7 +4,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Spinner from "./Spinner";
 
 const ImageSlider = ({ imgArr }) => {
   return (
@@ -19,7 +18,7 @@ const ImageSlider = ({ imgArr }) => {
             <img
               className="swiperSlideImg"
               src={url}
-              alt={`House image ${i + 1}`}
+              alt={`House ${i + 1}`}
             />
           </div>
         </SwiperSlide>

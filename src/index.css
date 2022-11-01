@@ -315,7 +315,7 @@ button {
 
 @media (min-width: 1217px) {
   .explore {
-    margin-bottom: 10rem;
+    margin-bottom: 0rem;
   }
 }
 
@@ -358,7 +358,7 @@ button {
   color: #ffffff;
   position: absolute;
   top: 70px;
-  left: 0;
+  left: 15px;
   font-weight: 600;
   max-width: 90%;
   font-size: 1.25rem;
@@ -376,7 +376,7 @@ button {
   color: #000000;
   position: absolute;
   top: 143px;
-  left: 11px;
+  left: 15px;
   font-weight: 600;
   max-width: 90%;
   background-color: #ffffff;
@@ -393,6 +393,7 @@ button {
 .exploreCategories {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 30px;
 }
 
 .exploreCategories a {

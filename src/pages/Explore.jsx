@@ -1,17 +1,16 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import rentCategoryImage from "../assets/jpg/rentCategoryImage.jpg";
 import sellCategoryImage from "../assets/jpg/sellCategoryImage.jpg";
 import { useState, useEffect } from "react";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../firebase.config";
 import Spinner from "../components/Spinner";
-import ListingSlider from "../components/LisitingSlider";
+import RecommendedSlider from "../components/RecommendedSlider";
 
 const Explore = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState(null);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -41,7 +40,7 @@ const Explore = () => {
       </header>
 
       <main>
-        {listings && <ListingSlider listings={listings} />}
+        {listings && <RecommendedSlider listings={listings} />}
 
         <p className="exploreCategoryHeading"></p>
         <div className="exploreCategories">
