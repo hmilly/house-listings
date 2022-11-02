@@ -34,7 +34,7 @@ const Offers = () => {
         );
         // execute query
         const querySnap = await getDocs(q);
-        
+
         const lastVisible = querySnap.docs[querySnap.docs.length - 1];
         setLastFetchedListing(lastVisible);
         const listings = [];
@@ -89,7 +89,7 @@ const Offers = () => {
   };
 
   const onDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm(`Are you sure you want to delete? ${id}`)) {
       await deleteDoc(doc(db, "listings", id));
       const updatedListings = listings.filter((listing) => listing.id !== id);
       setListings(updatedListings);

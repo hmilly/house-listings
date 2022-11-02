@@ -11,7 +11,6 @@ const Explore = () => {
   const [loading, setLoading] = useState(true);
   const [listings, setListings] = useState(null);
 
-
   useEffect(() => {
     const fetchListings = async () => {
       const listingsRef = collection(db, "listings");

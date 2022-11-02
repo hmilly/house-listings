@@ -39,7 +39,6 @@ const Category = () => {
         setLastFetchedListing(lastVisible);
         const listings = [];
 
-        
         querySnap.forEach((doc) => {
           return listings.push({
             id: doc.id,

@@ -61,7 +61,7 @@ const SignIn = () => {
                 className={`passwordInput ${
                   showPassword ? "" : "passwordHidden"
                 }`}
-                autoComplete='off'
+                autoComplete="off"
                 placeholder="Password"
                 id="password"
                 value={password}
@@ -85,7 +85,7 @@ const SignIn = () => {
               </div>
             </div>
           </form>
-         <Oauth/>
+          <Oauth />
           <Link to="/sign-up" className="registerLink">
             Sign Up Instead
           </Link>

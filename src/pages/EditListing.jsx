@@ -7,17 +7,18 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { db } from "../firebase.config";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { doc, updateDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { uuidv4 } from "@firebase/util";
 import Spinner from "../components/Spinner";
 import FormBody from "../components/FormBody";
 
-const CreateListing = () => {
+const EditListing = () => {
   // eslint-disable-next-line
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [listing, setListing] = useState(false);
   const [formData, setFormData] = useState({
     type: "rent",
     name: "",
@@ -45,6 +46,7 @@ const CreateListing = () => {
   const auth = getAuth();
   const navigate = useNavigate();
   const isMounted = useRef(true);
+  const params = useParams();
 
   useEffect(() => {
     if (isMounted) {
@@ -61,6 +63,32 @@ const CreateListing = () => {
     };
     // eslint-disable-next-line
   }, [isMounted]);
+
+  useEffect(() => {
+    if (listing && listing.userRef !== auth.currentUser.uid) {
+      toast.error("You cannot edit that listing");
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchListing = async () => {
+      const docRef = doc(db, "listings", params.listingId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setListing(docSnap.data());
+        setFormData({ ...docSnap.data(), address: docSnap.data().location });
+        setLoading(false);
+      } else {
+        navigate("/");
+        toast.error("Listing does not exist");
+      }
+    };
+
+    fetchListing();
+  }, [params.listingId, navigate]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -147,7 +175,8 @@ const CreateListing = () => {
     delete formDataCopy.address;
     !formDataCopy.offer && delete formDataCopy.discountedPrice;
 
-    const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+    const docRef = doc(db, "listings", params.listingId);
+    await updateDoc(docRef, formDataCopy);
     setLoading(false);
     toast.success("Listing saved");
     navigate(`/category/${formDataCopy.type}/${docRef.id}`);
@@ -159,7 +188,7 @@ const CreateListing = () => {
   return (
     <div className="profile">
       <header>
-        <p className="pageHeader">Create a listing</p>
+        <p className="pageHeader">Edit listing</p>
         <main>
           <form onSubmit={onSubmit}>
             <FormBody
@@ -168,7 +197,7 @@ const CreateListing = () => {
               geolocationEnabled={geolocationEnabled}
             />
             <button type="submit" className="primaryButton createListingButton">
-              Create Listing
+              Edit Listing
             </button>
           </form>
         </main>
@@ -177,4 +206,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default EditListing;

@@ -70,12 +70,16 @@ const Profile = () => {
     }));
 
   const onDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm(`Are you sure you want to delete? ${id}`)) {
       await deleteDoc(doc(db, "listings", id));
       const updatedListings = listings.filter((listing) => listing.id !== id);
       setListings(updatedListings);
       toast.success(`Successfully deleted listing`);
     }
+  };
+
+  const onEdit = (id) => {
+    navigate(`/edit-listing/${id}`);
   };
 
   const onLogOut = () => {
@@ -142,6 +146,7 @@ const Profile = () => {
                   listing={listing.data}
                   id={listing.id}
                   onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
                 />
               ))}
             </ul>

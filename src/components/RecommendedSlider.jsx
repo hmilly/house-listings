@@ -9,37 +9,42 @@ import { useNavigate } from "react-router-dom";
 const RecommendedSlider = ({ listings }) => {
   const navigate = useNavigate();
 
+  if (listings.length === 0) {
+    <></>;
+  }
   return (
-    <>
-      <p className="exploreHeading">Recommended</p>
+    listings && (
+      <>
+        <p className="exploreHeading">Recommended</p>
 
-      <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-      >
-        {listings.map(({ data, id }) => (
-          <SwiperSlide
-            key={id}
-            onClick={() => navigate(`/category/${data.type}/${id}`)}
-          >
-            <div className="swiperSlideDiv">
-              <p className="swiperSlideText">{data.name}</p>
-              <p className="swiperSlidePrice">
-                {data.discountedPrice ?? data.regularPrice}{" "}
-                {data.type === "rent" && "/ month"}
-              </p>
+        <Swiper
+          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+        >
+          {listings.map(({ data, id }) => (
+            <SwiperSlide
+              key={id}
+              onClick={() => navigate(`/category/${data.type}/${id}`)}
+            >
+              <div className="swiperSlideDiv">
+                <p className="swiperSlideText">{data.name}</p>
+                <p className="swiperSlidePrice">
+                  {data.discountedPrice ?? data.regularPrice}{" "}
+                  {data.type === "rent" && "/ month"}
+                </p>
 
-              <img
-                className="swiperSlideImg"
-                src={data.imgUrls[0]}
-                alt={`House ${id}`}
-              />
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </>
+                <img
+                  className="swiperSlideImg"
+                  src={data.imgUrls[0]}
+                  alt={`House ${id}`}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </>
+    )
   );
 };
 

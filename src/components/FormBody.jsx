@@ -67,7 +67,7 @@ const FormBody = ({ formData, setFormData, geolocationEnabled }) => {
         value={name}
         onChange={onMutate}
         maxLength="32"
-        minLength="10"
+        minLength="5"
         required
       />
 
@@ -254,9 +254,7 @@ const FormBody = ({ formData, setFormData, geolocationEnabled }) => {
         multiple
         required
       />
-      <button type="submit" className="primaryButton createListingButton">
-        Create Listing
-      </button>
+     
     </>
   );
 };
